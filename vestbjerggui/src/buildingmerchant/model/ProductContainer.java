@@ -33,5 +33,8 @@ public class ProductContainer {
 		}
 		products.add(product);
 	}
+	public ArrayList<Product> getAllProducts(){
+		return products;
+	} 
 	
 }

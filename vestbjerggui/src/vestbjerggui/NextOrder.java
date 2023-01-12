@@ -3,10 +3,15 @@ package vestbjerggui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import buildingmerchant.controller.ProductController;
+import buildingmerchant.model.Product;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -14,12 +19,19 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class NextOrder extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtSearchordertextfield;
-	private JTable productTable;
+	private ProductController productController;
+	private JList<Product> list;
 
 	/**
 	 * Launch the application.
@@ -58,13 +70,13 @@ public class NextOrder extends JDialog {
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblNewLabel_1 = new JLabel("Search:");
-				GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-				gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-				gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-				gbc_lblNewLabel_1.gridx = 0;
-				gbc_lblNewLabel_1.gridy = 1;
-				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+				JLabel lblSearch = new JLabel("Search:");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.EAST;
+				gbc_lblSearch.gridx = 0;
+				gbc_lblSearch.gridy = 1;
+				panel.add(lblSearch, gbc_lblSearch);
 			}
 			{
 				txtSearchordertextfield = new JTextField();
@@ -78,13 +90,16 @@ public class NextOrder extends JDialog {
 				txtSearchordertextfield.setColumns(10);
 			}
 			{
-				productTable = new JTable();
-				GridBagConstraints gbc_productTable = new GridBagConstraints();
-				gbc_productTable.gridwidth = 3;
-				gbc_productTable.fill = GridBagConstraints.BOTH;
-				gbc_productTable.gridx = 0;
-				gbc_productTable.gridy = 2;
-				panel.add(productTable, gbc_productTable);
+				JScrollPane scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.gridx = 2;
+				gbc_scrollPane.gridy = 2;
+				panel.add(scrollPane, gbc_scrollPane);
+				{
+					list = new JList<>();
+					scrollPane.setViewportView(list);
+				}
 			}
 		}
 		{
@@ -99,10 +114,32 @@ public class NextOrder extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						cancelClicked();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+		productController = new ProductController();
+		productController.generateTestProducts();
+		displayProducts();
+	}
+
+	private void cancelClicked() {
+		// TODO Auto-generated method stub
+		this.dispose();
+		this.setVisible(false);
+	}
+	
+	private void displayProducts() {
+		List<Product> products = productController.getAllProducts();
+		DefaultListModel<Product> dlm = new DefaultListModel<>();
+		dlm.addAll(products);
+		list.setModel(dlm);
 	}
 
 }

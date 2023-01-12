@@ -23,7 +23,7 @@ public class NextTool extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
-	private JButton addButton;
+	private JButton completeButton;
 	private JTable table;
 
 	/**
@@ -108,16 +108,16 @@ public class NextTool extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				addButton = new JButton("Add");
-				addButton.addMouseListener(new MouseAdapter() {
+				completeButton = new JButton("Complete");
+				completeButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						AddClicked();
 					}
 				});
-				addButton.setActionCommand("OK");
-				buttonPane.add(addButton);
-				getRootPane().setDefaultButton(addButton);
+				completeButton.setActionCommand("OK");
+				buttonPane.add(completeButton);
+				getRootPane().setDefaultButton(completeButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");

@@ -1,5 +1,7 @@
 package buildingmerchant.controller;
 
+import java.util.ArrayList;
+
 import buildingmerchant.model.Copy;
 import buildingmerchant.model.Product;
 import buildingmerchant.model.ProductContainer;
@@ -37,5 +39,8 @@ public class ProductController {
 		tableSaw.setPrice(3499.95);
 		container.addProduct(tableSaw);
 	}
+	public ArrayList<Product> getAllProducts(){
+		return container.getAllProducts();
+	} 
 
 }
