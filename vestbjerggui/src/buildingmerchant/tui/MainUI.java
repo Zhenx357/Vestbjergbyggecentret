@@ -33,11 +33,11 @@ public class MainUI {
 				generateTestData();
 				break;
 			case 0:
-				System.out.println("Tak for denne gang.");
+				System.out.println("Thanks for now.");
 				running = false;
 				break;
 			default:
-				System.out.println("Der er sket en uforklarlig fejl, choice = " + choice);
+				System.out.println("An unexplained error has occured, choice = " + choice);
 				break;
 			}
 		}
@@ -45,14 +45,14 @@ public class MainUI {
 	
 	private int writeMainMenu() {
 		Scanner keyboard = new Scanner(System.in);
-		System.out.println("****** Hovedmenu ******");
-		System.out.println(" (1) Ordremenu");
-		System.out.println(" (9) Generer testdata");
-		System.out.println(" (0) Afslut programmet");
-		System.out.print("\n Vælg:");
+		System.out.println("****** Main menu ******");
+		System.out.println(" (1) Order menu");
+		System.out.println(" (9) Generate test data");
+		System.out.println(" (0) Exit the program");
+		System.out.print("\n Choose:");
 
 		while (!keyboard.hasNextInt()) {
-			System.out.println("Input skal være et tal - prøv igen");
+			System.out.println("Input must be a number - try again");
 			keyboard.nextLine();
 		}
 		int choice = keyboard.nextInt();

@@ -28,9 +28,9 @@ public class Delivery {
 	}
 	
 	public void printDelivery() {
-		System.out.println("Leveringsinformationer: ");
-		System.out.println("Adresse: " + deliveryAddress);
-		System.out.println("Leveringstidspunkt: " + deliveryDate.toString());
+		System.out.println("Delivery information: ");
+		System.out.println("Adress: " + deliveryAddress);
+		System.out.println("Delivery time: " + deliveryDate.toString());
 		System.out.println("---------------------------------------------------");
 	}
 }

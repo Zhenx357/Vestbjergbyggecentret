@@ -44,63 +44,63 @@ public class OrderUI {
 				running = false;
 				break;
 			default:
-				System.out.println("En uforklarlig fejl er sket med choice = " + choice);
+				System.out.println("An unexplained error has occurred with choice = " + choice);
 				break;
 			}
 		}
 	}
 	
 	private void getOrder() {
-		System.out.println("Indtast ordrenummer: ");
+		System.out.println("Enter order number: ");
 		int orderNumber = getIntegerFromUser();
 		Order order = orderController.findOrder(orderNumber);
 		if (order == null) {
-			System.out.println("Ingen ordre fundet med nummer: " + orderNumber);
+			System.out.println("No order found with number: " + orderNumber);
 			return;
 		}
 		order.printOrder();
 	}
 
 	private void createOrder() {
-		System.out.println("Opretter ordre");
-		System.out.println("Indtast telefonnummer");
+		System.out.println("Creating order");
+		System.out.println("Insert phone number");
 		String phoneNumber = getStringFromUser();
 		if (phoneNumber.length() != 8) {
-			System.out.println("Ugyldigt telefonnummer");
+			System.out.println("Invalid phone number");
 			return;
 		}
 		Customer customer = findCustomer(phoneNumber);
 		if (customer == null) {
-			System.out.println("Kunde ikke fundet");
+			System.out.println("Customer does not exist");
 			return;
 		}
-		System.out.println("Kunde fundet: ");
+		System.out.println("Customer found: ");
 		customer.printCustomer();
 		Order order = new Order(customer);
 		while(true) {
-			System.out.println("Scan stregkode på produkt eller tast 0 for at færdiggøre scanning af produkter:");
+			System.out.println("Scan barcode on product or press 0 to complete scanning of products:");
 			String barcode = getStringFromUser();
 			if (barcode.equals("0")) {
-				System.out.println("Stopper scanning af produkter");
+				System.out.println("Stops scanning of products");
 				break;
 			}
 			if (barcode.isEmpty()) {
-				System.out.println("Ugyldig stregkode. Prøv igen");
+				System.out.println("Invalid barcode. Try again");
 				continue;
 			}
-			System.out.println("Stregkode scannet korrekt - Finder produkt");
+			System.out.println("Barcode scanned correctly - Finds product");
 			Product product = findProduct(barcode);
 			if (product == null) {
-				System.out.println("Produkt ikke fundet. Prøv igen");
+				System.out.println("Products not found. Try again");
 				continue;
 			}
 			product.printProduct();
 			
-			System.out.println("Indtast antal: ");
+			System.out.println("Enter quantity: ");
 			
 			int quantity = getIntegerFromUser();
 			if (quantity == 0) {
-				System.out.println("0 er ikke en gyldig mængde. Prøv igen.");
+				System.out.println("0 is not a valid quantity. Try again.");
 				continue;
 			}
 			
@@ -122,7 +122,7 @@ public class OrderUI {
 			order.printOrderLines();
 		}
 		if (order.getLines().isEmpty()) {
-			System.out.println("Ingen produkter valgt. Afbryder ordreoprettelse.");
+			System.out.println("No products selected. Cancels order creation.");
 			return;
 		}
 		
@@ -134,22 +134,22 @@ public class OrderUI {
 		
 		order.setDelivery(delivery);		
 		System.out.println("");
-		System.out.println("Ordre forberedt");
+		System.out.println("Order prepared");
 		order.printOrder();
 		
-		System.out.println("Bekræft ordre? Tryk j/n.");
+		System.out.println("Confirm order? Press j/n.");
 		String confirmation = getStringFromUser();
 		if (confirmation.equals("j")) {
 			boolean result = orderController.createOrder(order);
 			if (result) {
-				System.out.println("Ordren er oprettet korrekt med nummer: " + order.getOrderNumber());
-				System.out.println("Faktura sendt til: " + order.getCustomer().getEmailAddress());
+				System.out.println("The order has been created correctly with number: " + order.getOrderNumber());
+				System.out.println("Invoice sent to: " + order.getCustomer().getEmailAddress());
 			} else {
-				System.out.println("Ordren kunne ikke oprettes.");
+				System.out.println("The order could not be created.");
 			}
 			
 		} else if (confirmation.equals("n")) {
-			System.out.println("Ordren er annulleret.");
+			System.out.println("The order has been cancelled.");
 		}
 	}
 	
@@ -182,11 +182,11 @@ public class OrderUI {
 	
 	private int writeOrderMenu() {
 		Scanner keyboard = new Scanner(System.in);
-		System.out.println("****** Ordremenu ******");
-		System.out.println(" (1) Opret ordre");
-		System.out.println(" (2) Find ordre");
-		System.out.println(" (0) Tilbage");
-		System.out.print("\n Vælg:");
+		System.out.println("****** Order menu ******");
+		System.out.println(" (1) Create order");
+		System.out.println(" (2) Find order");
+		System.out.println(" (0) Back");
+		System.out.print("\n Choose:");
 		int choice = getIntegerFromUser();
 		return choice;
 	}
@@ -198,7 +198,7 @@ public class OrderUI {
 	private int getIntegerFromUser() {
 		Scanner keyboard = new Scanner(System.in);
 		while (!keyboard.hasNextInt()) {
-			System.out.println("Input skal være et tal - prøv igen");
+			System.out.println("Input must be a number - try again");
 			keyboard.nextLine();
 		}
 		return keyboard.nextInt();
@@ -211,7 +211,7 @@ public class OrderUI {
 	private String getStringFromUser() {
 		Scanner keyboard = new Scanner(System.in);
 		while (!keyboard.hasNextLine()) {
-			System.out.println("Der skal indtastest en værdi");
+			System.out.println("A value must be entered");
 			keyboard.nextLine();
 		}
 		return keyboard.nextLine();

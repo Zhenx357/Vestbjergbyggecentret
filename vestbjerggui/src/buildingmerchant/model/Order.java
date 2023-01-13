@@ -87,15 +87,15 @@ public class Order {
 		System.out.println("----------------------------------------------------------");
 		System.out.println("");
 		if (isConfirmed()) {
-			System.out.println("Ordrenummer: " + orderNumber);
+			System.out.println("Order number: " + orderNumber);
 		} else {
-			System.out.println("Ordre ikke oprettet");
+			System.out.println("Order not created");
 		}
 		System.out.println("");
 		customer.printCustomer();
 		System.out.println("");
-		System.out.println("Ordredato: " + date.toString());
-		System.out.println("Totalpris: " + getTotalPrice());
+		System.out.println("Ordered: " + date.toString());
+		System.out.println("Total price: " + getTotalPrice());
 		System.out.println("");
 		delivery.printDelivery();
 		System.out.println("");
@@ -112,11 +112,11 @@ public class Order {
 	 */
 	public void printOrderLines() {
 		System.out.println("--------------------------------------------------");
-		System.out.println("Tilføjede produkter: ");
+		System.out.println("Added products: ");
 		for (OrderLine line : orderLines) {
 			Product product = line.getProduct();
 			Integer quantity = line.getQuantity();
-			System.out.println("Produkt: " + product.getProductName() + ", antal: " + quantity + ", stk. pris: " + line.getProductPrice() + ", pris: " + line.getTotalPrice());
+			System.out.println("Product: " + product.getProductName() + ", quantity: " + quantity + ", price per unit: " + line.getProductPrice() + ", price: " + line.getTotalPrice());
 		}
 		System.out.println("--------------------------------------------------");
 	}

@@ -16,11 +16,11 @@ public abstract class Customer extends Person {
 
 	public void printCustomer() {
 		System.out.println("--------------------------------------------------");
-		System.out.println("Kunde: ");
-		System.out.println("Navn: " + getName());
-		System.out.println("Kunde ID: " + customerID);
-		System.out.println("Telefonnummer: " + getPhoneNumber());
-		System.out.println("Adresse: " + getAddress());
+		System.out.println("Customer: ");
+		System.out.println("Name: " + getName());
+		System.out.println("Customer ID: " + customerID);
+		System.out.println("Phone number: " + getPhoneNumber());
+		System.out.println("Adress: " + getAddress());
 		System.out.println("--------------------------------------------------");
 	}
 }

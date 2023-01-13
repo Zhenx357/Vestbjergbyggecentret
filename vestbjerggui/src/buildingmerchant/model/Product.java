@@ -41,6 +41,6 @@ public abstract class Product {
 	 * @param product
 	 */
 	public void printProduct() {
-		System.out.println("Produkt: " + productName + "\n");
+		System.out.println("Product: " + productName + "\n");
 	}
 }
