@@ -33,6 +33,9 @@ public abstract class Product {
 		this.price = price;
 	}
 	
+	public String getInfo() {
+		return productName;
+	}
 	/**
 	 * Prints information about a single product
 	 * @param product

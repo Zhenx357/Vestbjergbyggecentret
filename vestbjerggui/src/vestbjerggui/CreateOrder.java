@@ -153,6 +153,7 @@ public class CreateOrder extends JDialog {
 		}
 		customerController = new CustomerController ();
 		customerController.generateTestCustomers();
+		
 	}
 
 	private void nextOrder() {
