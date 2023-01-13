@@ -19,12 +19,12 @@ public class ProductController {
 	}
 
 	public void generateTestProducts() {
-		Product nail = new SimpleProduct("Søm");
+		Product nail = new SimpleProduct("Nails");
 		nail.setBarcode("0001");
 		nail.setPrice(0.5);
 		container.addProduct(nail);
 		
-		Product pressureWasher = new Copy("Højtryksrenser");
+		Product pressureWasher = new Copy("Pressure Washer");
 		pressureWasher.setBarcode("0002");
 		pressureWasher.setPrice(1299.95);
 		container.addProduct(pressureWasher);
@@ -34,7 +34,7 @@ public class ProductController {
 		hammer.setPrice(89.95);
 		container.addProduct(hammer);
 		
-		Product tableSaw = new Copy("Rundsav");
+		Product tableSaw = new Copy("Table Saw");
 		tableSaw.setBarcode("0004");
 		tableSaw.setPrice(3499.95);
 		container.addProduct(tableSaw);

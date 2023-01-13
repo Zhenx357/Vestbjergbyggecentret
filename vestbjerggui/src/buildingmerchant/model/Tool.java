@@ -30,9 +30,9 @@ public abstract class Tool {
 		this.pricePerDay = pricePerDay;
 	}
 
-	public Object getInfo() {
+	public String getInfo() {
 		// TODO Auto-generated method stub
-		return null;
+		return toolName;
 	}
 	
 	
