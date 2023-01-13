@@ -126,7 +126,7 @@ public class NextOrder extends JDialog {
 		}
 		productController = new ProductController();
 		productController.generateTestProducts();
-		CreateOrderCellRender cocr = new CreateOrderCellRender();
+		CreateOrderCellRenderer cocr = new CreateOrderCellRenderer();
 		list.setCellRenderer(cocr);
 		displayProducts();
 	}

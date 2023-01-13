@@ -3,6 +3,10 @@ package vestbjerggui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import buildingmerchant.controller.ToolController;
+import buildingmerchant.model.Tool;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,15 +20,20 @@ import java.awt.Insets;
 import javax.swing.JList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+import buildingmerchant.model.Product;
+import javax.swing.JScrollPane;
 
 public class NextTool extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
 	private JButton completeButton;
-	private JTable table;
+	private ToolController toolController;
+	private JList<Tool> listTool;
 
 	/**
 	 * Launch the application.
@@ -83,25 +92,19 @@ public class NextTool extends JDialog {
 				textBarcode.setColumns(10);
 			}
 			{
-				Object[][] data=
-			          {
-			              {"1","Man Utd","Luis Van gaal","86"},
-			                  {"2","Chelsea","Jose Mourinho","84"},
-			                  {"3","Man City","Manuele Pelegrini","82"},
-			                  {"4","Arsenal","Arsene Wenger","80"},
-			                  {"5","Liverpool","Brendan Rodgers","78"},
-			          };
-				String[] columnHeaders={"Position","Team","manager","Points"};
-				table = new JTable(data, columnHeaders);
-				table.setRowSelectionAllowed(true);
-				GridBagConstraints gbc_table = new GridBagConstraints();
-				gbc_table.gridwidth = 3;
-				gbc_table.insets = new Insets(0, 0, 0, 5);
-				gbc_table.fill = GridBagConstraints.BOTH;
-				gbc_table.gridx = 2;
-				gbc_table.gridy = 2;
-				panel.add(table, gbc_table);
+				JScrollPane scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.gridwidth = 3;
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.gridx = 2;
+				gbc_scrollPane.gridy = 2;
+				panel.add(scrollPane, gbc_scrollPane);
+				{
+					listTool = new JList();
+					scrollPane.setViewportView(listTool);
+				}
 			}
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -131,6 +134,22 @@ public class NextTool extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		toolController = new ToolController();
+		toolController.generateTestTools();
+		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
+		listTool.setCellRenderer(ctcr);
+		displayTools();
+		
+		
+	}
+
+	private void displayTools() {
+		List<Tool> tools = toolController.getAllTools();
+		DefaultListModel<Tool> dlm = new DefaultListModel<>();
+		dlm.addAll(tools);
+		listTool.setModel(dlm);
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void cancelClicked() {
@@ -141,8 +160,7 @@ public class NextTool extends JDialog {
 
 	private void AddClicked() {
 		// TODO Auto-generated method stub
-		int row = table.getSelectedRow();
-		table.getModel().getValueAt(row, 0);
+
 	}
 
 }

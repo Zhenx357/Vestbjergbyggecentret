@@ -6,7 +6,7 @@ public class ProductContainer {
 	private static ProductContainer instance;
 	private ArrayList<Product> products;
 	
-	private ProductContainer() {
+	ProductContainer() {
 		this.products = new ArrayList<>();
 	}
 	
