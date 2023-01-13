@@ -19,7 +19,7 @@ public class ToolController {
 	}
 
 	public void generateTestTools() {
-		Tool floorSander = new ToolCopy("Floor Sander");
+		Tool floorSander = new ToolCopy("Floor Sander"+getBarcode());
 		floorSander.setBarcode("0005");
 		floorSander.setPricePerDay(500);
 		container.addTool(floorSander);

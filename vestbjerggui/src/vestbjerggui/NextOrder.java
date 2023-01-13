@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.SwingConstants;
 
 public class NextOrder extends JDialog {
 
@@ -46,6 +47,7 @@ public class NextOrder extends JDialog {
 		}
 	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -99,6 +101,10 @@ public class NextOrder extends JDialog {
 				{
 					list = new JList<>();
 					scrollPane.setViewportView(list);
+				}
+				{
+					JLabel lblNewLabel_1 = new JLabel("Name                                           Barcode                                                          Price");
+					scrollPane.setColumnHeaderView(lblNewLabel_1);
 				}
 			}
 		}
