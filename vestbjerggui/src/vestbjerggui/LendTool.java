@@ -28,6 +28,7 @@ public class LendTool extends JDialog {
 	private CustomerController customerController;
 	private JTextField textTlf;
 	private JTextField textName;
+	private Customer selectedCustomer;
 
 	/**
 	 * Launch the application.
@@ -153,11 +154,11 @@ public class LendTool extends JDialog {
 		if(textTlf.getText().length()==(8)) {
 			
 			Customer customer = customerController.findCustomer(textTlf.getText()); 
-		
+			
 				
 		if(customer!= null) {
 			textName.setText(customer.getName());
-			
+			selectedCustomer = customer;
 		}
 			
 		}
@@ -176,7 +177,7 @@ public class LendTool extends JDialog {
 
 	private void nextTool() {
 		// TODO Auto-generated method stub
-		NextTool n = new NextTool();
+		NextTool n = new NextTool(selectedCustomer);
 		n.setVisible(true);
 	}
 

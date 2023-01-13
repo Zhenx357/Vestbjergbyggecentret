@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -18,12 +20,18 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JList;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+
+import buildingmerchant.model.Customer;
 import buildingmerchant.model.Product;
 import javax.swing.JScrollPane;
 
@@ -34,13 +42,16 @@ public class NextTool extends JDialog {
 	private JButton completeButton;
 	private ToolController toolController;
 	private JList<Tool> listTool;
+	DefaultListModel<Tool> dlm;
+	Customer selectedCustomer;
+	Tool selectedTool;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			NextTool dialog = new NextTool();
+			NextTool dialog = new NextTool(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -51,7 +62,8 @@ public class NextTool extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NextTool() {
+	public NextTool(Customer selectedCustomer) {
+		this.selectedCustomer = selectedCustomer;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,6 +135,17 @@ public class NextTool extends JDialog {
 				getRootPane().setDefaultButton(completeButton);
 			}
 			{
+				JButton searchButton = new JButton("Search");
+				searchButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						searchTool();
+					}
+				});
+				searchButton.setActionCommand("OK");
+				buttonPane.add(searchButton);
+			}
+			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
@@ -140,16 +163,34 @@ public class NextTool extends JDialog {
 		listTool.setCellRenderer(ctcr);
 		displayTools();
 		
-		
 	}
 
 	private void displayTools() {
 		List<Tool> tools = toolController.getAllTools();
-		DefaultListModel<Tool> dlm = new DefaultListModel<>();
+		dlm = new DefaultListModel<>();
 		dlm.addAll(tools);
 		listTool.setModel(dlm);
+		listTool.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				selectedTool = dlm.elementAt(listTool.getSelectedIndex());
+				textBarcode.setText(selectedTool.getBarcode());
+			}
+		});
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void searchTool() {
+		String barcode = textBarcode.getText();
+		for (int i = 0; i < dlm.size(); i++) {
+			Tool tool = dlm.get(i);
+			if (tool.getBarcode().equals(barcode)) {
+				listTool.setSelectedIndex(i);
+				return;
+			}
+		}
 	}
 
 	private void cancelClicked() {
@@ -159,8 +200,7 @@ public class NextTool extends JDialog {
 	}
 
 	private void AddClicked() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

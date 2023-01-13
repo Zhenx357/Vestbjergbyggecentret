@@ -32,7 +32,7 @@ public abstract class Tool {
 
 	public String getInfo() {
 		// TODO Auto-generated method stub
-		return toolName;
+		return toolName + " | " + barcode;
 	}
 	
 	
