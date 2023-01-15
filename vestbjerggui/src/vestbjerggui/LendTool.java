@@ -133,7 +133,7 @@ public class LendTool extends JDialog {
 					JButton nextButton = new JButton("Next");
 					nextButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							NextTool nextToolMenu = new NextTool(selectedCustomer);
+							nextTool();
 						}
 					});
 					buttonPane.add(nextButton);
@@ -147,6 +147,12 @@ public class LendTool extends JDialog {
 	}
 	
 	
+
+	private void nextTool() {
+		// TODO Auto-generated method stub
+		NextTool t = new NextTool(selectedCustomer);
+		t.setVisible(true);
+	}
 
 	private void searchTool() {
 		// TODO Auto-generated method stub
