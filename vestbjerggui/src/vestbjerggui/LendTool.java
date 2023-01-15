@@ -20,6 +20,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LendTool extends JDialog {
 
@@ -120,18 +122,6 @@ public class LendTool extends JDialog {
 				buttonPane.add(btnSearch);
 			}
 			{
-				JButton okNext = new JButton("Next");
-				okNext.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						nextTool();
-					}
-				});
-				okNext.setActionCommand("OK");
-				buttonPane.add(okNext);
-				getRootPane().setDefaultButton(okNext);
-			}
-			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
@@ -139,6 +129,15 @@ public class LendTool extends JDialog {
 						cancelClicked();
 					}
 				});
+				{
+					JButton nextButton = new JButton("Next");
+					nextButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							NextTool nextToolMenu = new NextTool(selectedCustomer);
+						}
+					});
+					buttonPane.add(nextButton);
+				}
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -173,12 +172,6 @@ public class LendTool extends JDialog {
 		// TODO Auto-generated method stub
 		ErrorCodeTlf e = new ErrorCodeTlf();
 		e.setVisible(true);
-	}
-
-	private void nextTool() {
-		// TODO Auto-generated method stub
-		NextTool n = new NextTool(selectedCustomer);
-		n.setVisible(true);
 	}
 
 	private void cancelClicked() {

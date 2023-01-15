@@ -145,20 +145,9 @@ public class NextTool extends JDialog {
 				searchButton.setActionCommand("OK");
 				buttonPane.add(searchButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						cancelClicked();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 		toolController = new ToolController();
-		toolController.generateTestTools();
+		//toolController.generateTestTools();
 		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
 		listTool.setCellRenderer(ctcr);
 		displayTools();
@@ -191,12 +180,6 @@ public class NextTool extends JDialog {
 				return;
 			}
 		}
-	}
-
-	private void cancelClicked() {
-		// TODO Auto-generated method stub
-		this.dispose();
-		this.setVisible(false);
 	}
 
 	private void AddClicked() {
