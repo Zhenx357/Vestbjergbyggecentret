@@ -34,12 +34,14 @@ import javax.swing.JScrollBar;
 import buildingmerchant.model.Customer;
 import buildingmerchant.model.Product;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class NextTool extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
-	private JButton completeButton;
+	private JButton addButton;
 	private ToolController toolController;
 	private JList<Tool> listTool;
 	DefaultListModel<Tool> dlm;
@@ -51,7 +53,7 @@ public class NextTool extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			NextTool dialog = new NextTool(null);
+			NextTool dialog = new NextTool();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -61,9 +63,10 @@ public class NextTool extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @param selectedCustomer2 
 	 */
-	public NextTool(Customer selectedCustomer) {
-		this.selectedCustomer = selectedCustomer;
+	public NextTool() {
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,16 +126,20 @@ public class NextTool extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				completeButton = new JButton("Complete");
-				completeButton.addMouseListener(new MouseAdapter() {
+				addButton = new JButton("Add");
+				addButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				addButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						AddClicked();
 					}
 				});
-				completeButton.setActionCommand("OK");
-				buttonPane.add(completeButton);
-				getRootPane().setDefaultButton(completeButton);
+				addButton.setActionCommand("OK");
+				buttonPane.add(addButton);
+				getRootPane().setDefaultButton(addButton);
 			}
 			{
 				JButton searchButton = new JButton("Search");
@@ -145,12 +152,33 @@ public class NextTool extends JDialog {
 				searchButton.setActionCommand("OK");
 				buttonPane.add(searchButton);
 			}
+			{
+				JButton btnCancel = new JButton("Cancel");
+				btnCancel.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						cancelClicked();
+					}
+				});
+				btnCancel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				buttonPane.add(btnCancel);
+			}
 		}
 		toolController = new ToolController();
-		//toolController.generateTestTools();
+		toolController.generateTestTools();
 		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
 		listTool.setCellRenderer(ctcr);
 		displayTools();
+		
+	}
+
+	protected void cancelClicked() {
+		this.dispose();
+		this.setVisible(false);
+		// TODO Auto-generated method stub
 		
 	}
 

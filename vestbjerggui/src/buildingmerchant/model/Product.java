@@ -34,7 +34,7 @@ public abstract class Product {
 	}
 	
 	public String getInfo() {
-		return productName + " | " + barcode;
+		return productName + " | " + barcode + " | " + price + " DKK";
 	}
 	/**
 	 * Prints information about a single product

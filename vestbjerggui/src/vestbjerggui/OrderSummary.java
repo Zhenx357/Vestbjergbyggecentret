@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class AddClicked extends JDialog {
+public class OrderSummary extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
@@ -17,7 +17,7 @@ public class AddClicked extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			AddClicked dialog = new AddClicked();
+			OrderSummary dialog = new OrderSummary();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -28,7 +28,7 @@ public class AddClicked extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AddClicked() {
+	public OrderSummary() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

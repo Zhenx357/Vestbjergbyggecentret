@@ -31,6 +31,7 @@ public class LendTool extends JDialog {
 	private JTextField textTlf;
 	private JTextField textName;
 	private Customer selectedCustomer;
+	private JButton btnNextTool;
 
 	/**
 	 * Launch the application.
@@ -131,9 +132,15 @@ public class LendTool extends JDialog {
 				});
 				{
 					JButton nextButton = new JButton("Next");
+					nextButton.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							nextTool();
+						}
+					});
 					nextButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							NextTool nextToolMenu = new NextTool(selectedCustomer);
+							
 						}
 					});
 					buttonPane.add(nextButton);
@@ -147,6 +154,27 @@ public class LendTool extends JDialog {
 	}
 	
 	
+
+	private void nextTool() {
+		// TODO Auto-generated method stub
+		if(textName.getText().isEmpty()) {
+			errorCodeName();
+		
+			
+		}
+		else {
+			NextTool n = new NextTool();
+			n.setVisible(true);
+		}
+		
+	}
+
+	private void errorCodeName() {
+		ErrorCodeName e = new ErrorCodeName();
+		e.setVisible(true);
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void searchTool() {
 		// TODO Auto-generated method stub

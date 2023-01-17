@@ -22,6 +22,8 @@ public abstract class Tool {
 		this.barcode = barcode;
 	}
 	
+
+	
 	public double getPricePerDay() {
 		return pricePerDay;
 	}
@@ -32,7 +34,7 @@ public abstract class Tool {
 
 	public String getInfo() {
 		// TODO Auto-generated method stub
-		return toolName + " | " + barcode;
+		return toolName + " | " + barcode + " | " + pricePerDay + " Dkk per day";
 	}
 	
 	

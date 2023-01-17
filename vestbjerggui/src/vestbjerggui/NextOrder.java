@@ -28,6 +28,8 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class NextOrder extends JDialog {
 
@@ -107,7 +109,7 @@ public class NextOrder extends JDialog {
 					scrollPane.setViewportView(list);
 				}
 				{
-					JLabel lblNewLabel_1 = new JLabel("Name                                           Barcode                                                          Price");
+					JLabel lblNewLabel_1 = new JLabel("Name, Barcode, Price");
 					scrollPane.setColumnHeaderView(lblNewLabel_1);
 				}
 			}
@@ -117,10 +119,20 @@ public class NextOrder extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				JButton addButton = new JButton("Add");
+				addButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						addClickedOrder();
+					}
+				});
+				addButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				addButton.setActionCommand("OK");
+				buttonPane.add(addButton);
+				getRootPane().setDefaultButton(addButton);
 			}
 			{
 				JButton searchButton = new JButton("Search");
@@ -152,12 +164,22 @@ public class NextOrder extends JDialog {
 		displayProducts();
 	}
 
+	private void addClickedOrder() {
+		
+		AddClickedOrder a = new AddClickedOrder();
+		a.setVisible(true);
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	private void cancelClicked() {
 		// TODO Auto-generated method stub
 		this.dispose();
 		this.setVisible(false);
 	}
 	
+	//søgefunktion
 	private void searchProduct() {
 		String barcode = txtSearchordertextfield.getText();
 		for (int i = 0; i < dlm.size(); i++) {
@@ -180,6 +202,8 @@ public class NextOrder extends JDialog {
 			public void valueChanged(ListSelectionEvent e) {
 				selectedProduct = dlm.elementAt(list.getSelectedIndex());
 				txtSearchordertextfield.setText(selectedProduct.getBarcode());
+				
+				
 			}
 		});
 	}
