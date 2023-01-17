@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import buildingmerchant.controller.ProductController;
 import buildingmerchant.model.Product;
@@ -33,6 +35,8 @@ public class NextOrder extends JDialog {
 	private JTextField txtSearchordertextfield;
 	private ProductController productController;
 	private JList<Product> list;
+	DefaultListModel<Product> dlm;
+	private Product selectedProduct;
 
 	/**
 	 * Launch the application.
@@ -119,6 +123,17 @@ public class NextOrder extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
+				JButton searchButton = new JButton("Search");
+				searchButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						searchProduct();
+					}
+				});
+				searchButton.setActionCommand("OK");
+				buttonPane.add(searchButton);
+			}
+			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
@@ -143,11 +158,30 @@ public class NextOrder extends JDialog {
 		this.setVisible(false);
 	}
 	
+	private void searchProduct() {
+		String barcode = txtSearchordertextfield.getText();
+		for (int i = 0; i < dlm.size(); i++) {
+			Product product = dlm.get(i);
+			if (product.getBarcode().equals(barcode)) {
+				list.setSelectedIndex(i);
+				return;
+			}
+		}
+	}
+	
 	private void displayProducts() {
 		List<Product> products = productController.getAllProducts();
-		DefaultListModel<Product> dlm = new DefaultListModel<>();
+		dlm = new DefaultListModel<>();
 		dlm.addAll(products);
 		list.setModel(dlm);
+		list.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				selectedProduct = dlm.elementAt(list.getSelectedIndex());
+				txtSearchordertextfield.setText(selectedProduct.getBarcode());
+			}
+		});
 	}
 
 }
