@@ -56,7 +56,7 @@ public class NextOrder extends JDialog {
 	public NextOrder(Order currentOrder) {
 		this.currentOrder = currentOrder;
 		orderController = new OrderController();
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 750, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -231,7 +231,12 @@ public class NextOrder extends JDialog {
 	}
 	
 	private void completeOrder() {
-		orderController.createOrder(currentOrder);
+		orderController.createOrder(currentOrder);		
+		OrderSummary o = new OrderSummary();
+		o.setVisible(true);
+		
+		
+		
 	}
 
 
@@ -276,6 +281,7 @@ public class NextOrder extends JDialog {
 		orderLineDlm.addAll(currentOrder.getLines());
 		orderLineList.setModel(orderLineDlm);
 		totalPriceLabel.setText(currentOrder.getTotalPrice() + " kr.");
+		
 	}
 	
 	

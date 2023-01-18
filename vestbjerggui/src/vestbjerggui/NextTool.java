@@ -32,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollBar;
 
 import buildingmerchant.model.Customer;
+import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -42,16 +43,24 @@ public class NextTool extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
 	private JButton addButton;
+	private JLabel totalPriceLabel;
 	private ToolController toolController;
 	private JList<Tool> listTool;
+	private JList<OrderLine> orderLineList;
+	
 	DefaultListModel<Tool> dlm;
+	DefaultListModel<OrderLine> orderLineDlm;
+	
 	Customer selectedCustomer;
-	Tool selectedTool;
-
+	private Tool selectedTool;
+	private Tool currentTool;
+	
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		try {
 			NextTool dialog = new NextTool();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -61,13 +70,14 @@ public class NextTool extends JDialog {
 		}
 	}
 
+
 	/**
 	 * Create the dialog.
 	 * @param selectedCustomer2 
 	 */
 	public NextTool() {
 		
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 669, 567);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,16 +91,16 @@ public class NextTool extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+			gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
 			gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblBarcode = new JLabel("Barcode:");
+				JLabel lblBarcode = new JLabel("Search:");
 				GridBagConstraints gbc_lblBarcode = new GridBagConstraints();
 				gbc_lblBarcode.insets = new Insets(0, 0, 5, 5);
-				gbc_lblBarcode.gridx = 1;
+				gbc_lblBarcode.gridx = 0;
 				gbc_lblBarcode.gridy = 1;
 				panel.add(lblBarcode, gbc_lblBarcode);
 			}
@@ -98,10 +108,10 @@ public class NextTool extends JDialog {
 				textBarcode = new JTextField();
 				textBarcode.setText("");
 				GridBagConstraints gbc_textBarcode = new GridBagConstraints();
-				gbc_textBarcode.gridwidth = 3;
+				gbc_textBarcode.gridwidth = 4;
 				gbc_textBarcode.insets = new Insets(0, 0, 5, 0);
 				gbc_textBarcode.fill = GridBagConstraints.HORIZONTAL;
-				gbc_textBarcode.gridx = 2;
+				gbc_textBarcode.gridx = 1;
 				gbc_textBarcode.gridy = 1;
 				panel.add(textBarcode, gbc_textBarcode);
 				textBarcode.setColumns(10);
@@ -118,9 +128,59 @@ public class NextTool extends JDialog {
 					listTool = new JList();
 					scrollPane.setViewportView(listTool);
 				}
+				{
+					JLabel lblNewLabel = new JLabel("Name, Barcode, Price per day");
+					scrollPane.setColumnHeaderView(lblNewLabel);
+				}
+			}
+			{
+				JLabel lblSearch = new JLabel("Order lines: ");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.WEST;
+				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridy = 3;
+				panel.add(lblSearch, gbc_lblSearch);
+			}
+			{
+				JScrollPane scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.gridx = 2;
+				gbc_scrollPane.gridy = 4;
+				panel.add(scrollPane, gbc_scrollPane);
+				{
+					orderLineList = new JList<>();
+					scrollPane.setViewportView(orderLineList);
+				}
+				{
+					JLabel lblNewLabel_1 = new JLabel("Orderlines");
+					scrollPane.setColumnHeaderView(lblNewLabel_1);
+				}
+			}
+			{
+				JLabel totalPriceLbl = new JLabel("Total price per day: ");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.EAST;
+				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridy = 5;
+				panel.add(totalPriceLbl, gbc_lblSearch);
+			}
+			{
+				totalPriceLabel = new JLabel("0");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 0);
+				gbc_lblSearch.anchor = GridBagConstraints.EAST;
+				gbc_lblSearch.gridx = 3;
+				gbc_lblSearch.gridy = 5;
+				panel.add(totalPriceLabel, gbc_lblSearch);
 			}
 			
 		}
+		
+
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -172,10 +232,20 @@ public class NextTool extends JDialog {
 		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
 		listTool.setCellRenderer(ctcr);
 		displayTools();
+		orderLineList.setCellRenderer(new OrderLineCellRenderer());
+		{
+			JScrollPane scrollPane = new JScrollPane();
+			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+			gbc_scrollPane.fill = GridBagConstraints.BOTH;
+			gbc_scrollPane.gridx = 2;
+			gbc_scrollPane.gridy = 2;
+			
+		}
+		displayTools();
 		
 	}
 
-	protected void cancelClicked() {
+	private void cancelClicked() {
 		this.dispose();
 		this.setVisible(false);
 		// TODO Auto-generated method stub
