@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import buildingmerchant.controller.CustomerController;
 import buildingmerchant.model.Customer;
+import buildingmerchant.model.Order;
 
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -34,6 +35,7 @@ public class CreateOrder extends JDialog {
 	private JLabel lblName;
 	private JTextField textName;
 	private JButton btnNext;
+	private Customer selectedCustomer;
 
 	/**
 	 * Launch the application.
@@ -160,11 +162,11 @@ public class CreateOrder extends JDialog {
 		// TODO Auto-generated method stub
 		if(textName.getText().isEmpty()) {
 			errorCodeName();
-		
 			
 		}
 		else {
-			NextOrder n = new NextOrder();
+			Order order = new Order(selectedCustomer);
+			NextOrder n = new NextOrder(order);
 			n.setVisible(true);
 		}
 		
@@ -200,7 +202,7 @@ public class CreateOrder extends JDialog {
 				
 		if(customer!= null) {
 			textName.setText(customer.getName());
-			
+			selectedCustomer = customer;
 		}
 			
 		}

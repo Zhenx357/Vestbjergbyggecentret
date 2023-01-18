@@ -114,9 +114,7 @@ public class Order {
 		System.out.println("--------------------------------------------------");
 		System.out.println("Added products: ");
 		for (OrderLine line : orderLines) {
-			Product product = line.getProduct();
-			Integer quantity = line.getQuantity();
-			System.out.println("Product: " + product.getProductName() + ", quantity: " + quantity + ", price per unit: " + line.getProductPrice() + ", price: " + line.getTotalPrice());
+			System.out.println(line.getInfo());
 		}
 		System.out.println("--------------------------------------------------");
 	}

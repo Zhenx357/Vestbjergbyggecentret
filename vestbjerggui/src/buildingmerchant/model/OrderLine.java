@@ -32,4 +32,8 @@ public class OrderLine {
 	public double getTotalPrice() {
 		return product.getPrice() * quantity;
 	}
+
+	public String getInfo() {
+		return "Product: " + product.getProductName() + ", quantity: " + quantity + ", price per unit: " + getProductPrice() + ", price: " + getTotalPrice();
+	}
 }

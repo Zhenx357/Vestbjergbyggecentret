@@ -11,7 +11,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import buildingmerchant.controller.OrderController;
 import buildingmerchant.controller.ProductController;
+import buildingmerchant.model.Customer;
+import buildingmerchant.model.Order;
+import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
 
 import javax.swing.JLabel;
@@ -35,29 +39,23 @@ public class NextOrder extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtSearchordertextfield;
+	private JLabel totalPriceLabel;
 	private ProductController productController;
 	private JList<Product> list;
+	private JList<OrderLine> orderLineList;
 	DefaultListModel<Product> dlm;
+	DefaultListModel<OrderLine> orderLineDlm;
 	private Product selectedProduct;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NextOrder dialog = new NextOrder();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private Order currentOrder;
+	private OrderController orderController;
 
 	
 	/**
 	 * Create the dialog.
 	 */
-	public NextOrder() {
+	public NextOrder(Order currentOrder) {
+		this.currentOrder = currentOrder;
+		orderController = new OrderController();
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -113,11 +111,69 @@ public class NextOrder extends JDialog {
 					scrollPane.setColumnHeaderView(lblNewLabel_1);
 				}
 			}
+			{
+				JLabel lblSearch = new JLabel("Order lines: ");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.WEST;
+				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridy = 3;
+				panel.add(lblSearch, gbc_lblSearch);
+			}
+			{
+				JScrollPane scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.gridx = 2;
+				gbc_scrollPane.gridy = 4;
+				panel.add(scrollPane, gbc_scrollPane);
+				{
+					orderLineList = new JList<>();
+					scrollPane.setViewportView(orderLineList);
+				}
+				{
+					JLabel lblNewLabel_1 = new JLabel("Orderlines");
+					scrollPane.setColumnHeaderView(lblNewLabel_1);
+				}
+			}
+			{
+				JLabel totalPriceLbl = new JLabel("Total price: ");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.EAST;
+				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridy = 5;
+				panel.add(totalPriceLbl, gbc_lblSearch);
+			}
+			{
+				totalPriceLabel = new JLabel("0");
+				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.insets = new Insets(0, 0, 5, 0);
+				gbc_lblSearch.anchor = GridBagConstraints.EAST;
+				gbc_lblSearch.gridx = 3;
+				gbc_lblSearch.gridy = 5;
+				panel.add(totalPriceLabel, gbc_lblSearch);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton completeButton = new JButton("Complete");
+				completeButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						completeOrder();
+					}
+				});
+				completeButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				completeButton.setActionCommand("OK");
+				buttonPane.add(completeButton);
+			}
 			{
 				JButton addButton = new JButton("Add");
 				addButton.addMouseListener(new MouseAdapter() {
@@ -162,14 +218,20 @@ public class NextOrder extends JDialog {
 		CreateOrderCellRenderer cocr = new CreateOrderCellRenderer();
 		list.setCellRenderer(cocr);
 		displayProducts();
+		orderLineList.setCellRenderer(new OrderLineCellRenderer());
+		displayOrderLines();
 	}
 
 	private void addClickedOrder() {
 		
-		AddClickedOrder a = new AddClickedOrder();
+		AddClickedOrder a = new AddClickedOrder(selectedProduct, currentOrder, this);
 		a.setVisible(true);
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void completeOrder() {
+		orderController.createOrder(currentOrder);
 	}
 
 
@@ -186,6 +248,7 @@ public class NextOrder extends JDialog {
 			Product product = dlm.get(i);
 			if (product.getBarcode().equals(barcode)) {
 				list.setSelectedIndex(i);
+				selectedProduct = product;
 				return;
 			}
 		}
@@ -206,6 +269,18 @@ public class NextOrder extends JDialog {
 				
 			}
 		});
+	}
+	
+	public void displayOrderLines() {
+		orderLineDlm = new DefaultListModel<>();
+		orderLineDlm.addAll(currentOrder.getLines());
+		orderLineList.setModel(orderLineDlm);
+		totalPriceLabel.setText(currentOrder.getTotalPrice() + " kr.");
+	}
+	
+	
+	public void setOrder(Order order) {
+		this.currentOrder = order;
 	}
 
 }

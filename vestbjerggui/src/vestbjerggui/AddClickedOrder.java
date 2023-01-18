@@ -9,8 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import buildingmerchant.controller.OrderController;
+import buildingmerchant.model.Customer;
+import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
-
+import buildingmerchant.model.Product;
 
 import javax.swing.JLabel;
 import java.awt.Dimension;
@@ -26,6 +29,9 @@ import java.awt.event.MouseEvent;
 public class AddClickedOrder extends JDialog {
 	private JTextField textFieldQuantity;
 	private OrderLine orderLine;
+	private Product selectedProduct;
+	private Order currentOrder;
+	private NextOrder parentWindow;
 
 	
 
@@ -35,7 +41,7 @@ public class AddClickedOrder extends JDialog {
 	public static void main(String[] args) {
 
 		try {
-			AddClickedOrder dialog = new AddClickedOrder();
+			AddClickedOrder dialog = new AddClickedOrder(null, null, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -46,7 +52,10 @@ public class AddClickedOrder extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AddClickedOrder() {
+	public AddClickedOrder(Product selectedProduct, Order currentOrder, NextOrder parent) {
+		this.selectedProduct = selectedProduct;
+		this.currentOrder = currentOrder;
+		this.parentWindow = parent;
 		setMinimumSize(new Dimension(100, 100));
 		setMaximumSize(new Dimension(100, 100));
 		setBounds(100, 100, 220, 150);
@@ -117,10 +126,14 @@ public class AddClickedOrder extends JDialog {
 	}
 
 	private void addProductQuantity() {
-		
-	//	OrderLine orderLine = orderLine.setQuantity(textFieldQuantity.getText());
-		// TODO Auto-generated method stub
-		
+		String quantityString = textFieldQuantity.getText();
+		Integer quantity = Integer.parseInt(quantityString);
+		orderLine = new OrderLine(selectedProduct, quantity);
+		currentOrder.addOrderLine(orderLine);
+		parentWindow.setOrder(currentOrder);
+		parentWindow.displayOrderLines();
+		this.setVisible(false);
+		this.dispose();
 	}
 
 	private void cancelClicked() {
