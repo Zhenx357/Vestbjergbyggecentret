@@ -22,8 +22,6 @@ public abstract class Tool {
 		this.barcode = barcode;
 	}
 	
-
-	
 	public double getPricePerDay() {
 		return pricePerDay;
 	}
@@ -37,6 +35,8 @@ public abstract class Tool {
 		return toolName + " | " + barcode + " | " + pricePerDay + " Dkk per day";
 	}
 	
-	
+	public void printTool() {
+		System.out.println("Tool: " + toolName + "\n");
+	}
 
 }

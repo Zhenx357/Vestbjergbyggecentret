@@ -29,7 +29,7 @@ public class Delivery {
 	
 	public void printDelivery() {
 		System.out.println("Delivery information: ");
-		System.out.println("Adress: " + deliveryAddress);
+		System.out.println("Address: " + deliveryAddress);
 		System.out.println("Delivery time: " + deliveryDate.toString());
 		System.out.println("---------------------------------------------------");
 	}

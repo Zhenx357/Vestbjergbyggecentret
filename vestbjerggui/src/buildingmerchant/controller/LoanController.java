@@ -2,6 +2,7 @@ package buildingmerchant.controller;
 
 import buildingmerchant.model.Loan;
 import buildingmerchant.model.LoanContainer;
+import buildingmerchant.model.Order;
 
 public class LoanController {
 	private LoanContainer loanContainer;
@@ -15,6 +16,9 @@ public class LoanController {
 		loan.confirmLoan();
 		boolean success = loanContainer.addLoan(loan);
 		return success;
+	}
+	public Loan findLoan(int loanNumber) {
+		return loanContainer.getLoan(loanNumber);
 	}
 }
 	
