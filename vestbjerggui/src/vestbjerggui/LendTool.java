@@ -163,7 +163,7 @@ public class LendTool extends JDialog {
 			
 		}
 		else {
-			NextTool n = new NextTool();
+			NextLoan n = new NextLoan();
 			n.setVisible(true);
 		}
 		

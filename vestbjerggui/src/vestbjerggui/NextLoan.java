@@ -29,13 +29,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import buildingmerchant.model.Customer;
+import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NextTool extends JDialog {
+public class NextLoan extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
@@ -48,7 +49,7 @@ public class NextTool extends JDialog {
 	DefaultListModel<OrderLine> orderLineDlm;
 	Customer selectedCustomer;
 	private Tool selectedTool;
-	private Tool currentTool;
+	private Loan currentLoan;
 	
 	
 	/**
@@ -57,7 +58,7 @@ public class NextTool extends JDialog {
 	public static void main(String[] args) {
 		
 		try {
-			NextTool dialog = new NextTool();
+			NextLoan dialog = new NextLoan();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -70,7 +71,7 @@ public class NextTool extends JDialog {
 	 * Create the dialog.
 	 * @param selectedCustomer2 
 	 */
-	public NextTool() {
+	public NextLoan() {
 		
 		setBounds(100, 100, 669, 567);
 		getContentPane().setLayout(new BorderLayout());
@@ -120,7 +121,7 @@ public class NextTool extends JDialog {
 				gbc_scrollPane.gridy = 2;
 				panel.add(scrollPane, gbc_scrollPane);
 				{
-					listTool = new JList();
+					listTool = new JList<>();
 					scrollPane.setViewportView(listTool);
 				}
 				{
@@ -192,6 +193,16 @@ public class NextTool extends JDialog {
 						AddClicked();
 					}
 				});
+				{
+					JButton btnComplete = new JButton("Complete");
+					btnComplete.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							completeLoan();
+						}
+					});
+					buttonPane.add(btnComplete);
+				}
 				addButton.setActionCommand("OK");
 				buttonPane.add(addButton);
 				getRootPane().setDefaultButton(addButton);
@@ -240,6 +251,14 @@ public class NextTool extends JDialog {
 		
 	}
 
+	private void completeLoan() {
+		// TODO Auto-generated method stub
+		LoanSummary l = new LoanSummary(this, currentLoan);
+		l.setVisible(true);
+		this.setVisible(false);
+	}
+
+
 	private void cancelClicked() {
 		this.dispose();
 		this.setVisible(false);
@@ -277,6 +296,10 @@ public class NextTool extends JDialog {
 
 	private void AddClicked() {
 		
+	}
+	
+	public void setLoan(Loan loan) {
+		this.currentLoan = loan;
 	}
 
 }
