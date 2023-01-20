@@ -190,7 +190,7 @@ public class NextLoan extends JDialog {
 				addButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						AddClicked();
+						AddClickedLoan();
 					}
 				});
 				{
@@ -247,9 +247,11 @@ public class NextLoan extends JDialog {
 			gbc_scrollPane.gridy = 2;
 			
 		}
-		displayTools();
+		
 		
 	}
+	
+	
 
 	private void completeLoan() {
 		// TODO Auto-generated method stub
@@ -294,7 +296,10 @@ public class NextLoan extends JDialog {
 		}
 	}
 
-	private void AddClicked() {
+	private void AddClickedLoan() {
+		AddClickedLoan a = new AddClickedLoan(selectedTool, currentLoan, this);
+		a.setVisible(true);
+		// TODO Auto-generated method stub
 		
 	}
 	
