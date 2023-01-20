@@ -15,3 +15,4 @@ public class CreateOrderCellRenderer implements ListCellRenderer<Product> {
 		return dlcr.getListCellRendererComponent(list, value.getInfo(), index, isSelected, cellHasFocus);
 	}
 }
+

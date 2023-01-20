@@ -231,12 +231,9 @@ public class NextOrder extends JDialog {
 	}
 	
 	private void completeOrder() {
-		orderController.createOrder(currentOrder);		
-		OrderSummary o = new OrderSummary();
+		OrderSummary o = new OrderSummary(this, currentOrder);
 		o.setVisible(true);
-		
-		
-		
+		this.setVisible(false);
 	}
 
 

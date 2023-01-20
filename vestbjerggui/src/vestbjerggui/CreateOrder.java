@@ -168,6 +168,7 @@ public class CreateOrder extends JDialog {
 			Order order = new Order(selectedCustomer);
 			NextOrder n = new NextOrder(order);
 			n.setVisible(true);
+			this.dispose();
 		}
 		
 	}
