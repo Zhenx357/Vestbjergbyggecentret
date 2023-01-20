@@ -28,9 +28,6 @@ import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JTable;
-import javax.swing.JScrollBar;
-
 import buildingmerchant.model.Customer;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
@@ -47,10 +44,8 @@ public class NextTool extends JDialog {
 	private ToolController toolController;
 	private JList<Tool> listTool;
 	private JList<OrderLine> orderLineList;
-	
 	DefaultListModel<Tool> dlm;
 	DefaultListModel<OrderLine> orderLineDlm;
-	
 	Customer selectedCustomer;
 	private Tool selectedTool;
 	private Tool currentTool;
