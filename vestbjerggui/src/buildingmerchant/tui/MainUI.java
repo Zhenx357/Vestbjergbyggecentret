@@ -4,16 +4,19 @@ import java.util.Scanner;
 
 import buildingmerchant.controller.CustomerController;
 import buildingmerchant.controller.ProductController;
+import buildingmerchant.controller.ToolController;
 
 public class MainUI {
 	private OrderUI orderUI;
 	private ProductController productController;
 	private CustomerController customerController;
+	private ToolController toolController;
 	
 	public MainUI() {
 		orderUI = new OrderUI();
 		productController = new ProductController();
 		customerController = new CustomerController();
+		toolController = new ToolController();
 	}
 	
 	

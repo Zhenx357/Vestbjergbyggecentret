@@ -23,6 +23,11 @@ import buildingmerchant.controller.OrderController;
 import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Point;
+import java.awt.Component;
 
 
 public class OrderSummary extends JDialog {
@@ -52,65 +57,70 @@ public class OrderSummary extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{80, 51, 52, 0};
+			gbl_panel.rowHeights = new int[]{13, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
 			{
 				JLabel customerTextLabel = new JLabel("Customer: ");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
-				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 0;
+				gbc_lblSearch.insets = new Insets(0, 0, 0, 5);
+				gbc_lblSearch.anchor = GridBagConstraints.NORTHWEST;
+				gbc_lblSearch.gridx = 1;
 				gbc_lblSearch.gridy = 0;
-				panel.add(customerTextLabel, gbc_lblSearch);
+				panel.add(customerTextLabel);
 			}
 			{
 				customerLabel = new JLabel("");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
 				gbc_lblSearch.insets = new Insets(0, 0, 5, 0);
-				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 1;
+				gbc_lblSearch.anchor = GridBagConstraints.NORTHWEST;
+				gbc_lblSearch.gridx = 2;
 				gbc_lblSearch.gridy = 0;
-				panel.add(customerLabel, gbc_lblSearch);
+				panel.add(customerLabel);
 			}
 		}
 		{
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{0, 0};
-			gbl_panel.rowHeights = new int[]{0, 0};
-			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[]{0, 0, 0};
+			gbl_panel.rowHeights = new int[]{38, 85, 0, 0, 0, 0, 0};
+			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE, 0.0};
+			gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblSearch = new JLabel("Order lines: ");
+				JLabel lblSearch = new JLabel("Orderlines: ");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
 				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.WEST;
-				gbc_lblSearch.gridx = 2;
-				gbc_lblSearch.gridy = 3;
+				gbc_lblSearch.gridx = 0;
+				gbc_lblSearch.gridy = 0;
 				panel.add(lblSearch, gbc_lblSearch);
 			}
 			{
 				JScrollPane scrollPane = new JScrollPane();
 				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 				gbc_scrollPane.fill = GridBagConstraints.BOTH;
-				gbc_scrollPane.gridx = 2;
-				gbc_scrollPane.gridy = 4;
+				gbc_scrollPane.gridx = 0;
+				gbc_scrollPane.gridy = 1;
 				panel.add(scrollPane, gbc_scrollPane);
 				{
 					orderLineList = new JList<>();
 					scrollPane.setViewportView(orderLineList);
 				}
-				{
-					JLabel lblNewLabel_1 = new JLabel("Orderlines");
-					scrollPane.setColumnHeaderView(lblNewLabel_1);
-				}
+				orderLineList.setCellRenderer(new OrderLineCellRenderer());
 			}
 			{
 				JLabel totalPriceLbl = new JLabel("Total price: ");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
+				gbc_lblSearch.fill = GridBagConstraints.VERTICAL;
 				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridx = 1;
 				gbc_lblSearch.gridy = 5;
 				panel.add(totalPriceLbl, gbc_lblSearch);
 			}
@@ -142,6 +152,10 @@ public class OrderSummary extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
@@ -152,7 +166,6 @@ public class OrderSummary extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		orderLineList.setCellRenderer(new OrderLineCellRenderer());
 		displayOrderLines();
 		displayCustomer();
 	}

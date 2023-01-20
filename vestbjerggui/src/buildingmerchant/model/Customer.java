@@ -20,7 +20,7 @@ public abstract class Customer extends Person {
 		System.out.println("Name: " + getName());
 		System.out.println("Customer ID: " + customerID);
 		System.out.println("Phone number: " + getPhoneNumber());
-		System.out.println("Adress: " + getAddress());
+		System.out.println("Address: " + getAddress());
 		System.out.println("--------------------------------------------------");
 	}
 }
