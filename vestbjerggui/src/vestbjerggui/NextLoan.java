@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import buildingmerchant.model.Customer;
+import buildingmerchant.model.Loan;
 import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
@@ -50,6 +51,8 @@ public class NextLoan extends JDialog {
 	Customer selectedCustomer;
 	private Tool selectedTool;
 	private Loan currentLoan;
+	private JButton searchButton;
+	private JButton btnCancel;
 	
 	
 	/**
@@ -208,7 +211,7 @@ public class NextLoan extends JDialog {
 				getRootPane().setDefaultButton(addButton);
 			}
 			{
-				JButton searchButton = new JButton("Search");
+				searchButton = new JButton("Search");
 				searchButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -219,7 +222,7 @@ public class NextLoan extends JDialog {
 				buttonPane.add(searchButton);
 			}
 			{
-				JButton btnCancel = new JButton("Cancel");
+				btnCancel = new JButton("Cancel");
 				btnCancel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -255,7 +258,7 @@ public class NextLoan extends JDialog {
 
 	private void completeLoan() {
 		// TODO Auto-generated method stub
-		LoanSummary l = new LoanSummary(this, currentLoan);
+		LoanSummary l = new LoanSummary(this, getCurrentLoan());
 		l.setVisible(true);
 		this.setVisible(false);
 	}
@@ -297,12 +300,19 @@ public class NextLoan extends JDialog {
 	}
 
 	private void AddClickedLoan() {
-		AddClickedLoan a = new AddClickedLoan(selectedTool, currentLoan, this);
+		AddClickedLoan a = new AddClickedLoan(selectedTool, getCurrentLoan(), this);
 		a.setVisible(true);
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+
+	private String getCurrentLoan() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public void setLoan(Loan loan) {
 		this.currentLoan = loan;
 	}
