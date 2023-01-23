@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import buildingmerchant.model.Tool;
+
 public class AddClickedLoan extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -17,7 +19,7 @@ public class AddClickedLoan extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			AddClickedLoan dialog = new AddClickedLoan();
+			AddClickedLoan dialog = new AddClickedLoan(null, null, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -27,8 +29,11 @@ public class AddClickedLoan extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @param nextLoan 
+	 * @param string 
+	 * @param selectedTool 
 	 */
-	public AddClickedLoan() {
+	public AddClickedLoan(Tool selectedTool, Object currentLoan, NextLoan nextLoan) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -51,5 +56,7 @@ public class AddClickedLoan extends JDialog {
 			}
 		}
 	}
+
+	
 
 }

@@ -258,7 +258,7 @@ public class NextLoan extends JDialog {
 
 	private void completeLoan() {
 		// TODO Auto-generated method stub
-		LoanSummary l = new LoanSummary(this, getCurrentLoan());
+		LoanSummary l = new LoanSummary();
 		l.setVisible(true);
 		this.setVisible(false);
 	}
@@ -299,17 +299,11 @@ public class NextLoan extends JDialog {
 		}
 	}
 
-	private void AddClickedLoan() {
+	public void AddClickedLoan() {
 		AddClickedLoan a = new AddClickedLoan(selectedTool, getCurrentLoan(), this);
 		a.setVisible(true);
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	private String getCurrentLoan() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
