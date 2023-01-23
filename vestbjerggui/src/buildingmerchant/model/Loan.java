@@ -14,7 +14,6 @@ public class Loan {
 	public Loan(Customer customer) {
 		loanLines = new ArrayList<>();
 		employees = new ArrayList<>();
-		getDate(new Date());
 		this.setCustomer(customer);
 		confirmed = false;
 	}
