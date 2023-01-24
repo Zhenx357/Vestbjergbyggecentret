@@ -1,6 +1,6 @@
 package buildingmerchant.model;
 
-public abstract class Tool {
+public class Tool {
 	private String toolName;
 	private String barcode;
 	private double pricePerDay;

@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import buildingmerchant.controller.CustomerController;
 import buildingmerchant.model.Customer;
+import buildingmerchant.model.Loan;
+import buildingmerchant.model.Tool;
 
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -31,7 +33,7 @@ public class LendTool extends JDialog {
 	private JTextField textTlf;
 	private JTextField textName;
 	private Customer selectedCustomer;
-	private JButton btnNextTool;
+	private JButton btnNextLoan;
 
 	/**
 	 * Launch the application.
@@ -135,7 +137,7 @@ public class LendTool extends JDialog {
 					nextButton.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							nextTool();
+							nextLoan();
 						}
 					});
 					nextButton.addActionListener(new ActionListener() {
@@ -155,7 +157,7 @@ public class LendTool extends JDialog {
 	
 	
 
-	private void nextTool() {
+	private void nextLoan() {
 		// TODO Auto-generated method stub
 		if(textName.getText().isEmpty()) {
 			errorCodeName();
@@ -163,8 +165,13 @@ public class LendTool extends JDialog {
 			
 		}
 		else {
-			NextLoan n = new NextLoan();
+			Loan loan = new Loan(selectedCustomer);
+			NextLoan n = new NextLoan(loan);
 			n.setVisible(true);
+			this.dispose();
+			
+			//NextLoan n = new NextLoan();
+			//n.setVisible(true);
 		}
 		
 	}
