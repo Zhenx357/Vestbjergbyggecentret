@@ -13,7 +13,6 @@ import javax.swing.event.ListSelectionListener;
 
 import buildingmerchant.controller.OrderController;
 import buildingmerchant.controller.ProductController;
-import buildingmerchant.model.Customer;
 import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
@@ -24,7 +23,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;

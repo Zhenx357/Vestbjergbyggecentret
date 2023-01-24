@@ -22,19 +22,16 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JList;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
+
 import java.util.List;
 
-import buildingmerchant.model.Customer;
+
 import buildingmerchant.model.Loan;
 import buildingmerchant.model.LoanLine;
-import buildingmerchant.model.Order;
-import buildingmerchant.model.OrderLine;
-import buildingmerchant.model.Product;
+
+
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -43,19 +40,19 @@ public class NextLoan extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textBarcode;
-	private JButton addButton;
+	
 	private JLabel totalPriceLabel;
 	private ToolController toolController;
 	private JList<Tool> listTool;
 	private JList<LoanLine> loanLineList;
 	DefaultListModel<Tool> dlm;
 	DefaultListModel<LoanLine> loanLineDlm;
-	Customer selectedCustomer;
 	private Tool selectedTool;
 	private Loan currentLoan;
 	private JButton searchButton;
 	private JButton btnCancel;
 	private LoanController loanController;
+	
 	
 	
 	/**
@@ -138,7 +135,7 @@ public class NextLoan extends JDialog {
 				}
 			}
 			{
-				JLabel lblSearch = new JLabel("Order lines: ");
+				JLabel lblSearch = new JLabel("Loan lines: ");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
 				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.WEST;
@@ -190,7 +187,7 @@ public class NextLoan extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				addButton = new JButton("Add");
+				JButton addButton = new JButton("Add");
 				addButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					}
@@ -241,20 +238,22 @@ public class NextLoan extends JDialog {
 				buttonPane.add(btnCancel);
 			}
 		}
+
+		{
+			//JScrollPane scrollPane = new JScrollPane();
+			//GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+			//gbc_scrollPane.fill = GridBagConstraints.BOTH;
+			//gbc_scrollPane.gridx = 2;
+			//gbc_scrollPane.gridy = 2;
+			
+		}
 		toolController = new ToolController();
 		toolController.generateTestTools();
 		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
 		listTool.setCellRenderer(ctcr);
 		displayTools();
 		loanLineList.setCellRenderer(new LoanLineCellRenderer());
-		{
-			JScrollPane scrollPane = new JScrollPane();
-			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-			gbc_scrollPane.fill = GridBagConstraints.BOTH;
-			gbc_scrollPane.gridx = 2;
-			gbc_scrollPane.gridy = 2;
-			
-		}
+		displayLoanLines();
 		
 		
 	}
@@ -263,8 +262,8 @@ public class NextLoan extends JDialog {
 
 	private void completeLoan() {
 		// TODO Auto-generated method stub
-		LoanSummary l = new LoanSummary();
-		l.setVisible(true);
+		LoanSummary o = new LoanSummary(this, currentLoan);
+		o.setVisible(true);
 		this.setVisible(false);
 	}
 

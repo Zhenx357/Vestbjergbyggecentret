@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import buildingmerchant.controller.OrderController;
+import buildingmerchant.model.Loan;
 import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
@@ -58,7 +59,7 @@ public class OrderSummary extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{80, 51, 52, 0};
+			gbl_panel.columnWidths = new int[]{70, 51, 52, 0};
 			gbl_panel.rowHeights = new int[]{13, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -121,16 +122,15 @@ public class OrderSummary extends JDialog {
 				gbc_lblSearch.fill = GridBagConstraints.VERTICAL;
 				gbc_lblSearch.insets = new Insets(0, 0, 0, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridx = 3;
 				gbc_lblSearch.gridy = 6;
 				panel.add(totalPriceLbl, gbc_lblSearch);
 			}
 			{
 				totalPriceLabel = new JLabel("0");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-				gbc_lblSearch.insets = new Insets(0, 0, 0, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 3;
+				gbc_lblSearch.gridx = 4;
 				gbc_lblSearch.gridy = 6;
 				panel.add(totalPriceLabel, gbc_lblSearch);
 			}
@@ -171,6 +171,9 @@ public class OrderSummary extends JDialog {
 		displayCustomer();
 	}
 	
+
+	
+
 
 	private void confirmOrder() {
 		orderController.createOrder(currentOrder);		
