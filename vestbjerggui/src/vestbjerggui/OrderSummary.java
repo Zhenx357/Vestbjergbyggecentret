@@ -86,24 +86,25 @@ public class OrderSummary extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{0, 0, 0};
-			gbl_panel.rowHeights = new int[]{38, 85, 0, 0, 0, 0, 0};
-			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE, 0.0};
+			gbl_panel.columnWidths = new int[]{-110, 130, 0};
+			gbl_panel.rowHeights = new int[]{24, 38, 0, 0, 0, 0, 0};
+			gbl_panel.columnWeights = new double[]{Double.MIN_VALUE, 1.0, 0.0};
 			gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0};
 			panel.setLayout(gbl_panel);
 			{
-				JLabel lblSearch = new JLabel("Orderlines: ");
-				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
-				gbc_lblSearch.anchor = GridBagConstraints.WEST;
-				gbc_lblSearch.gridx = 0;
-				gbc_lblSearch.gridy = 0;
-				panel.add(lblSearch, gbc_lblSearch);
+				JLabel lblNewLabel = new JLabel("OrderLines:");
+				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel.gridx = 0;
+				gbc_lblNewLabel.gridy = 0;
+				panel.add(lblNewLabel, gbc_lblNewLabel);
 			}
 			{
 				JScrollPane scrollPane = new JScrollPane();
 				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-				gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+				gbc_scrollPane.gridheight = 5;
+				gbc_scrollPane.gridwidth = 5;
+				gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 				gbc_scrollPane.fill = GridBagConstraints.BOTH;
 				gbc_scrollPane.gridx = 0;
 				gbc_scrollPane.gridy = 1;
@@ -118,19 +119,19 @@ public class OrderSummary extends JDialog {
 				JLabel totalPriceLbl = new JLabel("Total price: ");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
 				gbc_lblSearch.fill = GridBagConstraints.VERTICAL;
-				gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSearch.insets = new Insets(0, 0, 0, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.EAST;
-				gbc_lblSearch.gridx = 1;
-				gbc_lblSearch.gridy = 5;
+				gbc_lblSearch.gridx = 2;
+				gbc_lblSearch.gridy = 6;
 				panel.add(totalPriceLbl, gbc_lblSearch);
 			}
 			{
 				totalPriceLabel = new JLabel("0");
 				GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-				gbc_lblSearch.insets = new Insets(0, 0, 5, 0);
+				gbc_lblSearch.insets = new Insets(0, 0, 0, 5);
 				gbc_lblSearch.anchor = GridBagConstraints.EAST;
 				gbc_lblSearch.gridx = 3;
-				gbc_lblSearch.gridy = 5;
+				gbc_lblSearch.gridy = 6;
 				panel.add(totalPriceLabel, gbc_lblSearch);
 			}
 		}
