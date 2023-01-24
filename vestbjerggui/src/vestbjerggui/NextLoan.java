@@ -3,6 +3,7 @@ package vestbjerggui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import buildingmerchant.controller.LoanController;
 import buildingmerchant.controller.ToolController;
 import buildingmerchant.model.Tool;
 
@@ -30,6 +31,7 @@ import java.util.List;
 
 import buildingmerchant.model.Customer;
 import buildingmerchant.model.Loan;
+import buildingmerchant.model.LoanLine;
 import buildingmerchant.model.Order;
 import buildingmerchant.model.OrderLine;
 import buildingmerchant.model.Product;
@@ -45,36 +47,39 @@ public class NextLoan extends JDialog {
 	private JLabel totalPriceLabel;
 	private ToolController toolController;
 	private JList<Tool> listTool;
-	private JList<OrderLine> orderLineList;
+	private JList<LoanLine> loanLineList;
 	DefaultListModel<Tool> dlm;
-	DefaultListModel<OrderLine> orderLineDlm;
+	DefaultListModel<LoanLine> loanLineDlm;
 	Customer selectedCustomer;
 	private Tool selectedTool;
 	private Loan currentLoan;
 	private JButton searchButton;
 	private JButton btnCancel;
+	private LoanController loanController;
 	
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
 		
-		try {
-			NextLoan dialog = new NextLoan();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+		//try {
+			//NextLoan dialog = new NextLoan();
+			//dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			//dialog.setVisible(true);
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+		//}
+	//}
 
 
 	/**
 	 * Create the dialog.
 	 * @param selectedCustomer2 
 	 */
-	public NextLoan() {
+	public NextLoan(Loan currentLoan) {
+		this.currentLoan = currentLoan;
+		toolController = new ToolController();
 		
 		setBounds(100, 100, 669, 567);
 		getContentPane().setLayout(new BorderLayout());
@@ -149,8 +154,8 @@ public class NextLoan extends JDialog {
 				gbc_scrollPane.gridy = 4;
 				panel.add(scrollPane, gbc_scrollPane);
 				{
-					orderLineList = new JList<>();
-					scrollPane.setViewportView(orderLineList);
+					loanLineList = new JList<>();
+					scrollPane.setViewportView(loanLineList);
 				}
 				{
 					JLabel lblNewLabel_1 = new JLabel("Orderlines");
@@ -241,7 +246,7 @@ public class NextLoan extends JDialog {
 		CreateToolCellRenderer ctcr = new CreateToolCellRenderer();
 		listTool.setCellRenderer(ctcr);
 		displayTools();
-		orderLineList.setCellRenderer(new OrderLineCellRenderer());
+		loanLineList.setCellRenderer(new LoanLineCellRenderer());
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -300,11 +305,19 @@ public class NextLoan extends JDialog {
 	}
 
 	public void AddClickedLoan() {
-		AddClickedLoan a = new AddClickedLoan(selectedTool, getCurrentLoan(), this);
+		AddClickedLoan a = new AddClickedLoan(selectedTool, currentLoan, this);
 		a.setVisible(true);
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void displayLoanLines() {
+		loanLineDlm.addAll(currentLoan.getLines());
+		
+	}
+
+
+
 
 
 	public void setLoan(Loan loan) {

@@ -8,11 +8,16 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import buildingmerchant.model.Loan;
 import buildingmerchant.model.Tool;
 
 public class AddClickedLoan extends JDialog {
+	private Loan currentLoan;
+	private NextLoan parentWindow;
 
 	private final JPanel contentPanel = new JPanel();
+
+	private Tool selectedTool;
 
 	/**
 	 * Launch the application.
@@ -33,7 +38,10 @@ public class AddClickedLoan extends JDialog {
 	 * @param string 
 	 * @param selectedTool 
 	 */
-	public AddClickedLoan(Tool selectedTool, Object currentLoan, NextLoan nextLoan) {
+	public AddClickedLoan(Tool selectedTool, Loan currentLoan, NextLoan nextLoan) {
+		this.selectedTool = selectedTool;
+		this.currentLoan = currentLoan;
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
