@@ -4,7 +4,7 @@ public class LoanLine {
 	private Tool tool;
 	private int quantity;
 	
-	public LoanLine(Product product, int quantity) {
+	public LoanLine(Tool tool, int quantity) {
 		this.setTool(tool);
 		this.setQuantity(quantity);
 	}

@@ -44,7 +44,7 @@ public class Loan {
 		return date;
 	}
 	
-	public double getTotalPrice() {
+	public double getTotalPricePerDay() {
 		double totalPrice = 0;
 		for (LoanLine loanLine : loanLines) {
 			totalPrice += loanLine.getToolPrice() * loanLine.getQuantity();
@@ -86,7 +86,7 @@ public class Loan {
 		customer.printCustomer();
 		System.out.println("");
 		System.out.println("Loan: " + date.toString());
-		System.out.println("Total rent price: " + getTotalPrice());
+		System.out.println("Total rent price: " + getTotalPricePerDay());
 		System.out.println("");
 		printLoanLines();
 		System.out.println("----------------------------------------------------------");

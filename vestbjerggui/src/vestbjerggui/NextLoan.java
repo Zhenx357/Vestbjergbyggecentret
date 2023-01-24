@@ -220,7 +220,7 @@ public class NextLoan extends JDialog {
 				searchButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						searchTool();
+						searchTools();
 					}
 				});
 				searchButton.setActionCommand("OK");
@@ -293,7 +293,7 @@ public class NextLoan extends JDialog {
 		
 	}
 	
-	private void searchTool() {
+	private void searchTools() {
 		String barcode = textBarcode.getText();
 		for (int i = 0; i < dlm.size(); i++) {
 			Tool tool = dlm.get(i);
@@ -312,7 +312,10 @@ public class NextLoan extends JDialog {
 	}
 	
 	public void displayLoanLines() {
+		loanLineDlm = new DefaultListModel<>();
 		loanLineDlm.addAll(currentLoan.getLines());
+		loanLineList.setModel(loanLineDlm);
+		totalPriceLabel.setText(currentLoan.getTotalPricePerDay() + " kr.");
 		
 	}
 
